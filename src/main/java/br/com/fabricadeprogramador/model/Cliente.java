@@ -16,6 +16,14 @@ public class Cliente {
 	@Column(nullable=false, length=50)
 	private String email;
 
+	
+	public Cliente() {
+	}
+	public Cliente(String nome, String email) {
+		this.nome=nome;
+		this.email=email;
+	}
+
 	public Long getId() {
 		return id;
 	}
