@@ -1,5 +1,11 @@
 package br.com.fabricadeprogramador.repository;
 
+import javax.persistence.EntityManager;
+
+import static org.assertj.core.api.Assertions.*;
+
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,11 +20,14 @@ import br.com.fabricadeprogramador.model.Cliente;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(connection=EmbeddedDatabaseConnection.H2,replace=Replace.ANY)
+@AutoConfigureTestDatabase(replace=Replace.NONE)
 public class TestClienteRepository {
 
 	@Autowired
 	 ClienteRepository clienteRepository;
+	
+	@Autowired
+	EntityManager entityManager;
 	
 	@Test
 	public void testSalvar(){
@@ -29,5 +38,33 @@ public class TestClienteRepository {
 		
 		
 	}
+	
+	
+	@Test
+	public void testBuscarPorEmail(){
+		Cliente cli = new Cliente("Jão","jao@htcursos.com");
+		entityManager.persist(cli);
+		
+		Cliente cliEncontrado = clienteRepository.buscarPorEmail("jao@htcursos.com");
+		
+		assertThat(cliEncontrado.getNome()).isEqualTo(cli.getNome());
+		assertThat(cliEncontrado.getEmail()).isEqualTo(cli.getEmail());
+	}
+	
+	@Test
+	public void testBuscarTodos(){
+		Cliente cliJao = new Cliente("Jão","jao@htcursos.com");
+		entityManager.persist(cliJao);
+		
+		Cliente cliZe = new Cliente("ze","ze@htcursos.com");
+		entityManager.persist(cliZe);
+		
+		
+		List<Cliente> lista = clienteRepository.buscarTodos();
+		assertThat(lista.get(0).getNome()).isEqualTo(cliJao.getNome());
+		assertThat(lista.get(1).getNome()).isEqualTo(cliZe.getNome());
+		
+	}
+	
 	
 }
