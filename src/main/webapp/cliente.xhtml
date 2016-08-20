@@ -15,19 +15,40 @@
 		<h:commandButton action="#{clienteController.salvar}" value="Salvar">
 			<f:ajax execute="frmCliente" render="dtCliente"></f:ajax>
 		</h:commandButton>
+		
+		<h:commandButton rendered="#{clienteController.modoEdicao}" action="#{clienteController.cancelar}" value="Cancelar">
+			<f:ajax render="frmCliente"></f:ajax>
+		</h:commandButton>
 
 
 		<h:dataTable value="#{clienteController.clientes}" var="c"
 			id="dtCliente">
 			<h:column>
+				<f:facet name="header">ID</f:facet>
 				#{c.id}
 			</h:column>
 			<h:column>
+				<f:facet name="header">Nome</f:facet>
 				#{c.nome}
 			</h:column>
 			<h:column>
+				<f:facet name="header">E-mail</f:facet>
 				#{c.email}
 			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Ação</f:facet>
+				<h:commandButton action="#{clienteController.excluir(c)}" value="Excluir" onclick="return window.confirm('Certeza?')" >
+					<f:ajax  render="frmCliente:dtCliente"/>
+				</h:commandButton>
+				
+				<h:commandButton action="#{clienteController.editar(c)}" value="Editar" >
+					<f:ajax  render="frmCliente"/>
+				</h:commandButton>
+				
+			</h:column>
+			
+			
 		</h:dataTable>
 	</h:form>
 
