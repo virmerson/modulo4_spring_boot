@@ -19,7 +19,7 @@
 		
 		
 		<h:commandButton action="#{clienteController.salvar}" value="Salvar">
-			<f:ajax execute="frmCliente" render="dtCliente"></f:ajax>
+			<f:ajax execute="frmCliente" render="frmCliente"></f:ajax>
 		</h:commandButton>
 		
 		<h:commandButton rendered="#{clienteController.modoEdicao}" action="#{clienteController.cancelar}" value="Cancelar">
