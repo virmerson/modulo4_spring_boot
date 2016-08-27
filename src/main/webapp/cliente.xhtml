@@ -12,6 +12,12 @@
 	<h:form id="frmCliente">
 		Nome: <h:inputText value="#{clienteController.cliente.nome}" />
 		E-mail:	<h:inputText value="#{clienteController.cliente.email}" />
+		Estado: <h:selectOneMenu value="#{clienteController.cliente.estado}" converter="#{estadoConverter}">
+					<f:selectItem noSelectionOption="true"  itemValue="" itemLabel=".:Selecione:."/>
+					<f:selectItems value="#{estadoController.estados}" var="e" itemLabel="#{e.uf}"/>
+				</h:selectOneMenu>
+		
+		
 		<h:commandButton action="#{clienteController.salvar}" value="Salvar">
 			<f:ajax execute="frmCliente" render="dtCliente"></f:ajax>
 		</h:commandButton>
@@ -35,6 +41,12 @@
 				<f:facet name="header">E-mail</f:facet>
 				#{c.email}
 			</h:column>
+			
+			<h:column>
+				<f:facet name="header">UF</f:facet>
+				#{c.estado.uf}
+			</h:column>
+			
 			
 			<h:column>
 				<f:facet name="header">Ação</f:facet>
