@@ -8,24 +8,25 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.fabricadeprogramador.model.Estado;
-import br.com.fabricadeprogramador.repository.EstadoRepository;
+import br.com.fabricadeprogramador.model.TipoContato;
+import br.com.fabricadeprogramador.repository.TipoContatoRepository;
 import lombok.Getter;
 import lombok.Setter;
 
 @Named
 @ViewScoped
-public class EstadoController {
+public class TipoContatoController {
 
 		@Autowired
-		private EstadoRepository estadoRepository;
+		private TipoContatoRepository tipoContatoRepository;
+		
 		@Getter @Setter
-		private List<Estado> estados;
+		private List<TipoContato> tipoContatos;
 		
 		@PostConstruct
 		public void init(){
-			setEstados(estadoRepository.findAll());
+			setTipoContatos(tipoContatoRepository.findAll());
 		}
 
-		
+	
 }

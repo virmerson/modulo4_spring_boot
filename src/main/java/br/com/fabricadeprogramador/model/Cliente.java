@@ -12,13 +12,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-@Entity
-public class Cliente {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Cliente {
+	
 	@Id @GeneratedValue 
 	private Long id;
 	
-	private String nome;
+	private String nome; 
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="cliente", fetch=FetchType.EAGER)
 	private List<Contato> contatos =  new ArrayList<>();
@@ -26,47 +33,9 @@ public class Cliente {
 	@JoinColumn
 	@ManyToOne
 	private Estado estado;
-
-	
-	public Cliente() {
-	}
 	
 	public Cliente(String nome) {
-		this.nome=nome;
-		
+		setNome(nome);
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	
-	public Estado getEstado() {
-		return estado;
-	}
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
-
-	public List<Contato> getContatos() {
-		return contatos;
-	}
-
-	public void setContatos(List<Contato> contatos) {
-		this.contatos = contatos;
-	}
-	
 	
 }

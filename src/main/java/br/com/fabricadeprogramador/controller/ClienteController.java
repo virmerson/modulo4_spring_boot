@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.fabricadeprogramador.model.Cliente;
 import br.com.fabricadeprogramador.model.Contato;
 import br.com.fabricadeprogramador.repository.ClienteRepository;
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @ViewScoped
@@ -19,19 +21,19 @@ public class ClienteController {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
+	@Setter @Getter
 	private List<Cliente> clientes;
-	
+	@Setter @Getter
 	private Cliente cliente =  new Cliente();
-
+	@Setter @Getter
 	private boolean modoEdicao=false;
-	
-	private String descricaoContato;
+	@Setter @Getter
+	private Contato contato= new Contato();
 	
 	@PostConstruct
 	public void init() {
 		setClientes(clienteRepository.buscarTodos());
 	}
-	
 	
 	public void salvar(){
 		
@@ -60,13 +62,11 @@ public class ClienteController {
 	
 	public void adicionarContato(){
 		
-		Contato contato = new Contato();
-		contato.setDescricao(getDescricaoContato());
 		contato.setCliente(cliente);
-		
 		cliente.getContatos().add(contato);
+		contato = new Contato();
 		
-		setDescricaoContato("");
+		
 	}
 	
 	public void excluirContato(Contato contato){
@@ -74,34 +74,7 @@ public class ClienteController {
 		cliente.getContatos().remove(contato);
 	}
 	
-	public Cliente getCliente() {
-		return cliente;
-	}
+	
 
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	public List<Cliente> getClientes() {
-		return clientes;
-	}
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
-	}
-	public boolean isModoEdicao() {
-		return modoEdicao;
-	}
-	public void setModoEdicao(boolean modoEdicao) {
-		this.modoEdicao = modoEdicao;
-	}
-
-
-	public String getDescricaoContato() {
-		return descricaoContato;
-	}
-
-
-	public void setDescricaoContato(String descricaoContato) {
-		this.descricaoContato = descricaoContato;
-	}
 }
